@@ -1,65 +1,134 @@
-# Домашнее задание к занятию "`Название занятия`" - `Фамилия и имя студента`
+# Домашнее задание к занятию "`GitLab`" - `Вялов владислав`
 
-
-### Инструкция по выполнению домашнего задания
-
-   1. Сделайте `fork` данного репозитория к себе в Github и переименуйте его по названию или номеру занятия, например, https://github.com/имя-вашего-репозитория/git-hw или  https://github.com/имя-вашего-репозитория/7-1-ansible-hw).
-   2. Выполните клонирование данного репозитория к себе на ПК с помощью команды `git clone`.
-   3. Выполните домашнее задание и заполните у себя локально этот файл README.md:
-      - впишите вверху название занятия и вашу фамилию и имя
-      - в каждом задании добавьте решение в требуемом виде (текст/код/скриншоты/ссылка)
-      - для корректного добавления скриншотов воспользуйтесь [инструкцией "Как вставить скриншот в шаблон с решением](https://github.com/netology-code/sys-pattern-homework/blob/main/screen-instruction.md)
-      - при оформлении используйте возможности языка разметки md (коротко об этом можно посмотреть в [инструкции  по MarkDown](https://github.com/netology-code/sys-pattern-homework/blob/main/md-instruction.md))
-   4. После завершения работы над домашним заданием сделайте коммит (`git commit -m "comment"`) и отправьте его на Github (`git push origin`);
-   5. Для проверки домашнего задания преподавателем в личном кабинете прикрепите и отправьте ссылку на решение в виде md-файла в вашем Github.
-   6. Любые вопросы по выполнению заданий спрашивайте в чате учебной группы и/или в разделе “Вопросы по заданию” в личном кабинете.
-   
-Желаем успехов в выполнении домашнего задания!
-   
-### Дополнительные материалы, которые могут быть полезны для выполнения задания
-
-1. [Руководство по оформлению Markdown файлов](https://gist.github.com/Jekins/2bf2d0638163f1294637#Code)
-
----
 
 ### Задание 1
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
 
 `При необходимости прикрепитe сюда скриншоты
 ![Название скриншота 1](ссылка на скриншот 1)`
 
 
----
+ скриншот 1 https://disk.yandex.ru/i/za4hDkPWTcXnlw
+ 
+ скриншот 2  https://disk.yandex.ru/i/RBmberTYGb03-Q
+
+ скриншот 3 https://disk.yandex.ru/i/pfykobj7LkRDqw
+
+ скриншот 4 https://disk.yandex.ru/i/AV-MT12N053PSg
 
 ### Задание 2
 
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
+.gitlab-ci.yml
 ```
-Поле для вставки кода...
+# .gitlab-ci.yml
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  NODE_VERSION: "18"
+
+# Этап 1: Тестирование
+unit-tests:
+  stage: test
+  image: node:$NODE_VERSION
+  script:
+    - echo "Running unit tests..."
+    - npm install
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+    reports:
+      junit: junit.xml
+  only:
+    - main
+    - merge_requests
+
+integration-tests:
+  stage: test  
+  image: node:$NODE_VERSION
+  script:
+    - echo "Running integration tests..."
+    - npm run integration-test
+  dependencies:
+    - unit-tests
+
+# Этап 2: Сборка
+build:
+  stage: build
+  image: node:$NODE_VERSION
+  script:
+    - echo "Building application..."
+    - npm run build
+    - echo "Build completed successfully!"
+  artifacts:
+    paths:
+      - dist/
+      - build/
+  only:
+    - main
+
+docker-build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - echo "Building Docker image..."
+    - docker build -t my-app:latest .
+    - docker images
+  dependencies:
+    - build
+  only:
+    - main
+
+# Этап 3: Деплой
+deploy-staging:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "Deploying to staging environment..."
+    - apk add --no-cache curl
+    - curl -X POST https://api.staging.com/deploy
+    - echo "Staging deployment completed!"
+  environment:
+    name: staging
+    url: https://staging.example.com
+  only:
+    - main
+
+deploy-production:
+  stage: deploy
+  image: alpine:latest  
+  script:
+    - echo "Deploying to production..."
+    - echo "Production deployment would happen here"
+  environment:
+    name: production
+    url: https://production.example.com
+  when: manual
+  only:
+    - main
+
+# Этапы которые всегда выполняются
+code-quality:
+  stage: test
+  image: node:$NODE_VERSION
+  script:
+    - echo "Checking code quality..."
+    - npm run lint
+    - npm run type-check
+  allow_failure: true
+
+security-scan:
+  stage: test
+  image: alpine:latest
+  script:
+    - echo "Running security scan..."
+    - apk add --no-cache git
+    - git secrets --scan
 ....
 ....
 ....
@@ -67,51 +136,15 @@
 ```
 
 `При необходимости прикрепитe сюда скриншоты
-![Название скриншота 2](ссылка на скриншот 2)`
+
+ скриншот 1 https://disk.yandex.ru/i/UjHYohRVJQFgLA
+ 
+ скриншот 2  https://disk.yandex.ru/i/eBocJNj-eeB4XQ
+
+ скриншот 3 https://disk.yandex.ru/i/hY2AJN6EMvX3mw
+
+ скриншот 4 https://disk.yandex.ru/i/6s4yE_qHMuB15A
 
 
 ---
 
-### Задание 3
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
-
-### Задание 4
-
-`Приведите ответ в свободной форме........`
-
-1. `Заполните здесь этапы выполнения, если требуется ....`
-2. `Заполните здесь этапы выполнения, если требуется ....`
-3. `Заполните здесь этапы выполнения, если требуется ....`
-4. `Заполните здесь этапы выполнения, если требуется ....`
-5. `Заполните здесь этапы выполнения, если требуется ....`
-6. 
-
-```
-Поле для вставки кода...
-....
-....
-....
-....
-```
-
-`При необходимости прикрепитe сюда скриншоты
-![Название скриншота](ссылка на скриншот)`
