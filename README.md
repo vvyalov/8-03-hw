@@ -7,8 +7,9 @@
 ![Название скриншота 1](ссылка на скриншот 1)`
 
 
- скриншот 1 https://disk.yandex.ru/i/6vQUM9dJ9agSww
- 
+ скриншот 1
+![alt text](img/1.jpg)
+  
 
 
 
@@ -56,11 +57,11 @@ sudo systemctl status apache2
 
 `При необходимости прикрепитe сюда скриншоты
 
- скриншот 1 https://disk.yandex.ru/i/WzQVnUn3Kam3MA
+ скриншот 1 ![alt text](img/2.jpg)
  
- скриншот 2  https://disk.yandex.ru/i/A4tM9gErE6eFOw
+ скриншот 2 ![alt text](img/3.jpg)
 
- скриншот 3 https://disk.yandex.ru/i/tbZUTyMlgVZkxg
+ скриншот 3 ![alt text](img/4.jpg)
 
 
 
