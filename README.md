@@ -7,143 +7,88 @@
 ![Название скриншота 1](ссылка на скриншот 1)`
 
 
- скриншот 1 https://disk.yandex.ru/i/za4hDkPWTcXnlw
+ скриншот 1 https://disk.yandex.ru/i/6vQUM9dJ9agSww
  
- скриншот 2  https://disk.yandex.ru/i/RBmberTYGb03-Q
 
- скриншот 3 https://disk.yandex.ru/i/pfykobj7LkRDqw
 
- скриншот 4 https://disk.yandex.ru/i/AV-MT12N053PSg
+
+# 1. Установка PostgreSQL
+sudo apt install -y postgresql postgresql-contrib
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+
+# 2. Создание базы данных и пользователя для Zabbix
+sudo -u postgres createuser --pwprompt zabbix
+# Вводим пароль: zabbix
+sudo -u postgres createdb -O zabbix zabbix
+
+# 3. Установка репозитория Zabbix
+wget https://repo.zabbix.com/zabbix/7.2/debian/pool/main/z/zabbix-release/zabbix-release_7.7-3+debian11_all.deb
+sudo dpkg -i zabbix-release_7.2-3+debian11_all.deb
+sudo apt update
+
+# 4. Установка компонентов Zabbix
+sudo apt install -y zabbix-server-pgsql zabbix-frontend-php php8.3-pgsql zabbix-apache-conf zabbix-sql-scripts zabbix-agent
+
+# 5. Импорт начальной схемы базы данных
+sudo zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
+
+# 6. Настройка конфигурации Zabbix Server
+sudo sed -i 's/^# DBPassword=.*/DBPassword=zabbix/' /etc/zabbix/zabbix_server.conf
+sudo sed -i 's/^# DBHost=.*/DBHost=localhost/' /etc/zabbix/zabbix_server.conf
+
+# 7. Запуск и включение служб
+sudo systemctl restart zabbix-server zabbix-agent apache2
+sudo systemctl enable zabbix-server zabbix-agent apache2
+
+# 8. Проверка статуса служб
+sudo systemctl status zabbix-server
+sudo systemctl status zabbix-agent
+sudo systemctl status apache2
+
+
+
+
 
 ### Задание 2
 
-.gitlab-ci.yml
-```
-# .gitlab-ci.yml
-stages:
-  - test
-  - build
-  - deploy
 
-variables:
-  NODE_VERSION: "18"
-
-# Этап 1: Тестирование
-unit-tests:
-  stage: test
-  image: node:$NODE_VERSION
-  script:
-    - echo "Running unit tests..."
-    - npm install
-    - npm test
-  artifacts:
-    when: always
-    paths:
-      - coverage/
-    reports:
-      junit: junit.xml
-  only:
-    - main
-    - merge_requests
-
-integration-tests:
-  stage: test  
-  image: node:$NODE_VERSION
-  script:
-    - echo "Running integration tests..."
-    - npm run integration-test
-  dependencies:
-    - unit-tests
-
-# Этап 2: Сборка
-build:
-  stage: build
-  image: node:$NODE_VERSION
-  script:
-    - echo "Building application..."
-    - npm run build
-    - echo "Build completed successfully!"
-  artifacts:
-    paths:
-      - dist/
-      - build/
-  only:
-    - main
-
-docker-build:
-  stage: build
-  image: docker:latest
-  services:
-    - docker:dind
-  script:
-    - echo "Building Docker image..."
-    - docker build -t my-app:latest .
-    - docker images
-  dependencies:
-    - build
-  only:
-    - main
-
-# Этап 3: Деплой
-deploy-staging:
-  stage: deploy
-  image: alpine:latest
-  script:
-    - echo "Deploying to staging environment..."
-    - apk add --no-cache curl
-    - curl -X POST https://api.staging.com/deploy
-    - echo "Staging deployment completed!"
-  environment:
-    name: staging
-    url: https://staging.example.com
-  only:
-    - main
-
-deploy-production:
-  stage: deploy
-  image: alpine:latest  
-  script:
-    - echo "Deploying to production..."
-    - echo "Production deployment would happen here"
-  environment:
-    name: production
-    url: https://production.example.com
-  when: manual
-  only:
-    - main
-
-# Этапы которые всегда выполняются
-code-quality:
-  stage: test
-  image: node:$NODE_VERSION
-  script:
-    - echo "Checking code quality..."
-    - npm run lint
-    - npm run type-check
-  allow_failure: true
-
-security-scan:
-  stage: test
-  image: alpine:latest
-  script:
-    - echo "Running security scan..."
-    - apk add --no-cache git
-    - git secrets --scan
-....
-....
-....
-....
-```
 
 `При необходимости прикрепитe сюда скриншоты
 
- скриншот 1 https://disk.yandex.ru/i/UjHYohRVJQFgLA
+ скриншот 1 https://disk.yandex.ru/i/WzQVnUn3Kam3MA
  
- скриншот 2  https://disk.yandex.ru/i/eBocJNj-eeB4XQ
+ скриншот 2  https://disk.yandex.ru/i/A4tM9gErE6eFOw
 
- скриншот 3 https://disk.yandex.ru/i/hY2AJN6EMvX3mw
+ скриншот 3 https://disk.yandex.ru/i/tbZUTyMlgVZkxg
 
- скриншот 4 https://disk.yandex.ru/i/6s4yE_qHMuB15A
+
+
+# 1. Установка репозитория Zabbix
+
+wget https://repo.zabbix.com/zabbix/7.2/release/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.2+debian12_all.deb
+sudo dpkg -i zabbix-release_latest_7.2+debian12_all.deb
+sudo apt update
+
+# 2. Установка Zabbix Agent
+
+sudo apt install zabbix-agent
+
+# 3. Настройка конфигурации агента
+
+sudo sed -i 's/Server=127.0.0.1/Server=10.0.2.30/g' /etc/zabbix/zabbix_agentd.conf
+sudo sed -i 's/ServerActive=127.0.0.1/ServerActive=10.0.2.30/g' /etc/zabbix/zabbix_agentd.conf
+sudo sed -i 's/Hostname=Zabbix server/Hostname=zbx-host01/g' /etc/zabbix/zabbix_agentd.conf
+
+# 4. запуск и автозагрузка службы 
+sudo systemctl restart zabbix-agent
+sudo systemctl enable zabbix-agent
+
+# 5. Проверка статуса службы
+sudo systemctl status zabbix-agent
+
+# 6. Проверка сетевых подключений
+sudo netstat -tlnp | grep zabbix
 
 
 ---

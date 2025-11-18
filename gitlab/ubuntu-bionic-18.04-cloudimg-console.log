@@ -679,3 +679,38 @@ ubuntu-bionic login: [   25.873065] cloud-init[1934]: Cloud-init v. 23.1.2-0ubun
 [ 3424.518680] rcu_sched kthread starved for 67976 jiffies! g76194 c76193 f0x0 RCU_GP_WAIT_FQS(3) ->state=0x402 ->cpu=1
 [ 3424.527545] 	(detected by 0, t=67976 jiffies, g=76194, c=76193, q=53)
 [ 3424.546435] rcu_sched kthread starved for 67976 jiffies! g76194 c76193 f0x0 RCU_GP_WAIT_FQS(3) ->state=0x0 ->cpu=1
+[ 4179.642783] INFO: rcu_sched self-detected stall on CPU
+[ 4179.650047] 	0-...!: (1 ticks this GP) idle=99a/140000000000001/0 softirq=298360/298360 fqs=0 
+[ 4179.659424] 	 (t=69303 jiffies g=90539 c=90538 q=16)
+[ 4179.665817] rcu_sched kthread starved for 69303 jiffies! g90539 c90538 f0x0 RCU_GP_WAIT_FQS(3) ->state=0x402 ->cpu=1
+[ 4179.678577] INFO: rcu_sched detected stalls on CPUs/tasks:
+[ 4179.685861] 	(detected by 1, t=69314 jiffies, g=90539, c=90538, q=55)
+[ 4179.693970] All QSes seen, last rcu_sched kthread activity 69316 (4295937256-4295867940), jiffies_till_next_fqs=1, root ->qsmask 0x0
+[ 4179.709196] rcu_sched kthread starved for 69320 jiffies! g90539 c90538 f0x2 RCU_GP_WAIT_FQS(3) ->state=0x0 ->cpu=1
+[ 5155.937638] INFO: rcu_sched detected stalls on CPUs/tasks:
+[ 5155.944488] 	(detected by 0, t=63560 jiffies, g=108141, c=108141, q=47)
+[ 5155.951543] INFO: Stall ended before state dump start
+[ 5525.412338] INFO: rcu_sched self-detected stall on CPU
+[ 5525.413277] INFO: rcu_sched self-detected stall on CPU
+[ 5525.418549] 	1-...!: (1 ticks this GP) idle=ce6/140000000000002/0 softirq=358660/358660 fqs=0 
+[ 5525.435040] 	 (t=61605 jiffies g=117588 c=117587 q=10)
+[ 5525.435131] 	0-...!: (1 ticks this GP) idle=742/140000000000001/0 softirq=362715/362715 fqs=0 
+[ 5525.441534] rcu_sched kthread starved for 61605 jiffies! g117588 c117587 f0x0 RCU_GP_WAIT_FQS(3) ->state=0x402 ->cpu=1
+[ 5525.450814] 	 (t=61605 jiffies g=117588 c=117587 q=10)
+[ 5525.467734] rcu_sched kthread starved for 61605 jiffies! g117588 c117587 f0x0 RCU_GP_WAIT_FQS(3) ->state=0x402 ->cpu=1
+[ 6080.508293] INFO: rcu_sched self-detected stall on CPU
+[ 6080.510399] INFO: rcu_sched detected stalls on CPUs/tasks:
+[ 6080.516510] 	1-...!: (1 ticks this GP) idle=792/140000000000001/0 softirq=375997/375997 fqs=0 
+[ 6080.532200] 	 (t=34551 jiffies g=127943 c=127942 q=278)
+[ 6080.532301] 	1-...!: (1 ticks this GP) idle=792/140000000000001/0 softirq=375997/375997 fqs=0 
+[ 6080.538379] rcu_sched kthread starved for 34551 jiffies! g127943 c127942 f0x0 RCU_GP_WAIT_FQS(3) ->state=0x402 ->cpu=1
+[ 6080.547791] 	(detected by 0, t=34551 jiffies, g=127943, c=127942, q=278)
+[ 6080.569259] rcu_sched kthread starved for 34551 jiffies! g127943 c127942 f0x0 RCU_GP_WAIT_FQS(3) ->state=0x0 ->cpu=1
+[ 7169.429763] INFO: rcu_sched self-detected stall on CPU
+[ 7169.435193] INFO: rcu_sched detected stalls on CPUs/tasks:
+[ 7169.436697] 	0-...!: (1 ticks this GP) idle=a0a/140000000000001/0 softirq=403777/403777 fqs=1 
+[ 7169.452891] 	 (t=123071 jiffies g=142500 c=142499 q=56)
+[ 7169.452962] 	0-...!: (1 ticks this GP) idle=a0a/140000000000001/0 softirq=403777/403777 fqs=1 
+[ 7169.459122] rcu_sched kthread starved for 123065 jiffies! g142500 c142499 f0x0 RCU_GP_WAIT_FQS(3) ->state=0x402 ->cpu=1
+[ 7169.467930] 	(detected by 1, t=123071 jiffies, g=142500, c=142499, q=56)
+[ 7169.489680] rcu_sched kthread starved for 123065 jiffies! g142500 c142499 f0x0 RCU_GP_WAIT_FQS(3) ->state=0x0 ->cpu=1
