@@ -14,3 +14,5 @@
 ![alt text](img/3.jpg)
 ![alt text](img/4.jpg)
 ![alt text](img/5.jpg)
+
+![Статистика](img/6.jpg)
