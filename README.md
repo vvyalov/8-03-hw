@@ -4,6 +4,7 @@
 ### Задание 1
 файл конфигурации [ссылка](<Задание 1/haproxy.cfg>)
 
+
 ![alt text](img/1.jpg)
 ![alt text](img/2.jpg)
 
