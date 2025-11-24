@@ -2,13 +2,13 @@
 
 
 ### Задание 1
-файл конфигурации [text](<Задание 1/haproxy.cfg>)
+файл конфигурации [ссылка](<Задание 1/haproxy.cfg>)
 
 ![alt text](img/1.jpg)
 ![alt text](img/2.jpg)
 
 ### Задание 2
-[text](<Задание 2/haproxy.cfg>)
+[ссылка](<Задание 2/haproxy.cfg>)
 
 ![alt text](img/3.jpg)
 ![alt text](img/4.jpg)
