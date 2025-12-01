@@ -2,13 +2,13 @@
 
 
 ### Задание 1
-![alt text](img/1.jpg)
+![alt text](img/1.1.jpg)
 
 
 ### Задание 2
 
-![alt text](img/2.jpg)
+![alt text](img/2.1.jpg)
 
-![alt text](img/3.jpg)
+![alt text](img/3.1.jpg)
 
-![alt text](img/4.jpg)
+![alt text](img/4.1.jpg)
