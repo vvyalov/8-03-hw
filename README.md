@@ -2,19 +2,13 @@
 
 
 ### Задание 1
-файл конфигурации [ссылка](<Задание 1/haproxy.cfg>)
-
-
 ![alt text](img/1.jpg)
-![alt text](img/2.jpg)
+
 
 ### Задание 2
-файл конфигурации [ссылка](<Задание 2/haproxy.cfg>)
+
+![alt text](img/2.jpg)
 
 ![alt text](img/3.jpg)
 
 ![alt text](img/4.jpg)
-
-![alt text](img/5.jpg)
-
-![Статистика](img/6.jpg)
