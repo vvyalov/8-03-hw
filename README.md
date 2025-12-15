@@ -29,6 +29,8 @@
 
 ![alt text](img/3.jpg)
 
+![alt text](img/4.jpg)
+
 
 ### Задание 4
 
@@ -36,7 +38,8 @@
 
 Через redis-cli достаньте все записанные ключи и значения из базы, приведите скриншот этой операции.
 
-![alt text](img/4.jpg)
+![alt text](img/5.jpg)
 
+![alt text](img/6.jpg)
 
-
+![alt text](img/7.jpg)
