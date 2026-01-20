@@ -56,3 +56,24 @@ pg_restore -U username -h localhost -d newdatabase -a -v /backup/mydatabase_back
 
 # Восстановление из SQL-скрипта
 psql -U username -h localhost -d newdatabase -f /backup/mydatabase_backup.sql
+
+
+### Задание 3
+
+MySQL
+
+3.1. С помощью официальной документации приведите пример команды инкрементного резервного копирования базы данных MySQL.
+
+# Создаем полный бэкап
+mysqldump -u root -p --single-transaction --flush-logs --master-data=2 \
+--all-databases > /backup/full_backup_$(date +%Y%m%d).sql
+
+# После полного бэкапа смотрим текущий бинарный лог
+SHOW MASTER STATUS;
+
+# Находим нужные файлы бинарных логов
+cp /var/lib/mysql/mysql-bin.000003 /backup/incremental/
+cp /var/lib/mysql/mysql-bin.000004 /backup/incremental/
+
+
+
