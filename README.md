@@ -36,6 +36,12 @@ https://hub.docker.com/r/vvyalov/custom-nginx
 
 ![alt text](img/10.jpg)
 
+![alt text](img/16.jpg)
+
+![alt text](img/17.jpg)
+
+![alt text](img/18.jpg)
+
 Задание 5
 
 ![alt text](img/12.jpg)
