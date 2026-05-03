@@ -1,6 +1,18 @@
 # Домашнее задание к занятию "Уязвимости и атаки на информационные системы" - `Вялов Владислав`
 
+## Задание 0
+![alt text](img/13.jpg)
 
+
+## Задание 1
+
+![alt text](img/16.jpg)
+
+![alt text](img/17.jpg)
+
+![alt text](img/18.jpg)
+
+![alt text](img/19.jpg)
 
 
 ## Задание 3
@@ -9,9 +21,10 @@
 
 ## Задание 4 
 
-![alt text](img/8.jpg)
+![alt text](img/14.jpg)
 
-![alt text](img/9.jpg)
+![alt text](img/15.jpg)
+
 
 https://github.com/vvyalov/shvirtd-example-python.git
 
@@ -37,3 +50,5 @@ https://github.com/vvyalov/shvirtd-example-python.git
 ![alt text](img/10.jpg)
 
 ![alt text](img/11.jpg)
+
+![alt text](img/12.jpg)
