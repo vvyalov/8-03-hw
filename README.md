@@ -12,7 +12,6 @@
 
 ![alt text](img/6.jpg)
 
-![alt text](img/7.jpg)
+https://github.com/vvyalov/my_own_collection.git
 
-
-git https://github.com/vvyalov/vector-role.git
+https://github.com/vvyalov/my_own_collection/releases/download/1.0.0/my_own_namespace-yandex_cloud_elk-1.0.0.tar.gz
