@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  es-hot:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: es-hot
+    environment:
+      - node.name=es-hot
+      - cluster.name=elk-homework
+      - discovery.seed_hosts=es-hot,es-warm
+      - cluster.initial_master_nodes=es-hot,es-warm
+      - node.roles=master,data_hot,ingest,data_content
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_hot_data:/usr/share/elasticsearch/data
+    networks:
+      - elk-net
+
+  es-warm:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: es-warm
+    environment:
+      - node.name=es-warm
+      - cluster.name=elk-homework
+      - discovery.seed_hosts=es-hot,es-warm
+      - cluster.initial_master_nodes=es-hot,es-warm
+      - node.roles=master,data_warm
+      - xpack.security.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - es_warm_data:/usr/share/elasticsearch/data
+    networks:
+      - elk-net
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.11.0
+    container_name: logstash
+    volumes:
+      - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+    ports:
+      - "5000:5000"
+      - "5044:5044"
+    environment:
+      - LS_JAVA_OPTS=-Xms256m -Xmx256m
+    depends_on:
+      - es-hot
+      - es-warm
+    networks:
+      - elk-net
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://es-hot:9200
+      - SERVER_NAME=kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - es-hot
+    networks:
+      - elk-net
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.11.0
+    container_name: filebeat
+    user: root
+    volumes:
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    command: filebeat -e -strict.perms=false
+    depends_on:
+      - logstash
+    networks:
+      - elk-net
+
+networks:
+  elk-net:
+    driver: bridge
+
+volumes:
+  es_hot_data:
+  es_warm_data:
